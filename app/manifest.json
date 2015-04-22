@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Kaizen Variation Editor",
+  "version": "0.0.1",
+
+  "description": "Kaizen Platform Variation Editor Extension for Google Chrome Developer Tools",
+  "icons": {
+    "16": "images/icon-16.png",
+    "128": "images/icon-128.png"
+  },
+
+  "author": "Atsushi Nagase <http://ngs.io>",
+  "background": { "scripts": ["background.js"] },
+  "content_scripts": [{
+    "js": ["content_scripts/document_start.js"],
+    "run_at": "document_start",
+    "matches": ["<all_urls>"]
+  }],
+  "devtools_page": "devtools.html",
+  "permissions": ["tabs", "<all_urls>"],
+  "web_accessible_resources": []
+}
