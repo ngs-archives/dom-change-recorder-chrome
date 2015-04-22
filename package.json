@@ -39,6 +39,7 @@
     "gulp-karma": "0.0.4",
     "jasmine-jquery": "~2.0.6",
     "rimraf": "~2.3.2",
-    "run-sequence": "~1.0.2"
+    "run-sequence": "~1.0.2",
+    "karma-story-reporter": "~0.3.1"
   }
 }

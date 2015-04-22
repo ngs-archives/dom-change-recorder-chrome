@@ -1,0 +1,16 @@
+machine:
+  timezone: UTC
+  node:
+    version: 0.10.26
+  environment:
+    KARMA_REPORTER: story
+dependencies:
+  override:
+    - npm install
+compile:
+  override:
+    - npm run build
+test:
+  override:
+    - npm test
+
