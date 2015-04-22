@@ -5,6 +5,8 @@ gulp = require "gulp"
 gutil = require 'gulp-util'
 jade = require 'gulp-jade'
 karma = require 'gulp-karma'
+rimraf = require 'rimraf'
+sequence = require "run-sequence"
 
 gulp.task 'jade', ->
   gulp.src './src/**/*.jade'
@@ -16,7 +18,7 @@ gulp.task 'coffee', ->
   .pipe coffee(bere: yes).on 'error', gutil.log
   .pipe gulp.dest './app'
 
-gulp.task 'concat-content', ->
+gulp.task 'concat-content', ['setup', 'coffee'], ->
   gulp
   .src ['./app/scripts/_vendor.js', './app/scripts/_content.js']
   .pipe concat 'content.js'
@@ -48,7 +50,14 @@ gulp.task 'test', ->
   .on 'error', (err) ->
     throw err
 
-gulp.task 'setup',  ['bower']
-gulp.task 'concat', ['concat-content']
-gulp.task 'build',  ['vendor', 'jade', 'coffee', 'concat']
-gulp.task 'default', ['build', 'test']
+gulp.task 'clean', (done) ->
+  rimraf './app', done
+
+gulp.task 'setup', (done) ->
+  sequence 'bower', done
+gulp.task 'concat', (done) ->
+  sequence 'concat-content', done
+gulp.task 'build', (done) ->
+  sequence 'vendor', 'jade', 'coffee', 'concat', done
+gulp.task 'default', (done) ->
+  sequence 'clean', 'setup', 'build', 'test', done
